@@ -3,6 +3,7 @@ package DTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ExpenseRequest(
@@ -10,7 +11,7 @@ public record ExpenseRequest(
         String category,
 
         @NotNull
-        Double amount,
+        BigDecimal amount,
 
         @NotNull
         LocalDate date

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -22,7 +23,7 @@ public class Expense {
     private String category;
 
     @NotNull
-    private Double amount;
+    private BigDecimal amount;
 
     @DateTimeFormat
     private LocalDate date;
