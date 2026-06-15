@@ -20,6 +20,9 @@ public class Expense {
     private Long id;
 
     @NotBlank
+    private String title;
+
+    @NotBlank
     private String category;
 
     @NotNull

@@ -21,6 +21,7 @@ public class ExpenseService {
 
     public Expense createExpense (ExpenseRequest request){
         Expense expense = new Expense();
+        expense.setTitle(request.title());
         expense.setDate(request.date());
         expense.setCategory(request.category());
         expense.setAmount(request.amount());

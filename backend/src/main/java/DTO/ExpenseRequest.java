@@ -8,6 +8,9 @@ import java.time.LocalDate;
 
 public record ExpenseRequest(
         @NotBlank
+        String title,
+
+        @NotBlank
         String category,
 
         @NotNull
