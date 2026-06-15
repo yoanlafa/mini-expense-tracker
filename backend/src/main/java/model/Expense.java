@@ -1,0 +1,29 @@
+package model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "expenses")
+@Data
+@NoArgsConstructor
+public class Expense {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    private String category;
+
+    @NotNull
+    private Double amount;
+
+    @DateTimeFormat
+    private LocalDate date;
+}
