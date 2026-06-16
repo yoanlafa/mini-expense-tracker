@@ -7,6 +7,7 @@ import ExpenseForm from "./components/ExpenseForm.tsx";
 
 function App(){
   const[expenses, setExpenses] = useState<Expense[]>([]);
+  const[formVisible, setFormVisible]=useState(false);
 
   useEffect(() => {
     getExpenses().then((data)=>{
@@ -31,6 +32,7 @@ function App(){
       createExpense(expenseRequest)
           .then((createdExpense)=>{
               setExpenses((previousExpenses:Expense[])=>[...previousExpenses, createdExpense]);
+              setFormVisible(false);
 
           }).catch((error)=>console.error("Error creating Expense", error));
     }
@@ -45,11 +47,19 @@ function App(){
         <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">
           Mini Expense Tracker
         </h1>
+          <>
+              <div className="mb-6 flex items-center justify-between">
 
-        <h3 className="text-2xl font-bold text-center text-green-600 mb-6">
-          Expenses
-        </h3>
+                  <button
+                      onClick={()=>setFormVisible(true)}
+                      className="bg-green-500 text-black px-4 py-2 rounded-md text-lg"
+                      >+</button>
 
+                  <h3 className="text-2xl font-bold text-center text-green-600">
+                      Expenses
+                  </h3>
+              </div>
+          </>
           {/* List of All the Expenses*/}
 
         {
@@ -60,8 +70,9 @@ function App(){
 
           {/*Form to Submit New Expenses*/}
 
-          {
-              <ExpenseForm onCreateExpense={handleExpenseForm}/>
+          { formVisible &&
+              <ExpenseForm onCreateExpense={handleExpenseForm}
+              onCancel={()=>setFormVisible(false)}/>
           }
       </div>
 

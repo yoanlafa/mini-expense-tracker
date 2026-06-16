@@ -3,13 +3,14 @@ import type {CreateExpenseRequest} from "../types/Expense.ts";
 
 interface ExpenseFormProps {
     onCreateExpense: (expenseRequest: CreateExpenseRequest) => void;
+    onCancel: ()=>void;
 }
 
 
 //used for submitting new Expenses
 
 
-function ExpenseForm({onCreateExpense}: ExpenseFormProps) {
+function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
     const [amount, setAmount] = useState(0.0);
@@ -82,6 +83,13 @@ function ExpenseForm({onCreateExpense}: ExpenseFormProps) {
                     type="submit"
                     className="bg-blue-500 text-black px-4 py-2 rounded-md"
                     > Submit Expense</button>
+
+                <button
+                    type="button"
+                    onClick={onCancel}
+                    className={"bg-grey-500 text-black px-4 py-2 rounded-md"}>
+                    Cancel
+                </button>
             </div>
         </form>
     );
