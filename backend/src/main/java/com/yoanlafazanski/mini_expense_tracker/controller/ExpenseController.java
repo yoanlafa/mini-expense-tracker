@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.yoanlafazanski.mini_expense_tracker.service.ExpenseService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,11 @@ public class ExpenseController {
     @GetMapping
     public List<Expense> getAllExpense(){
         return expenseService.getAllExpense();
+    }
+
+    @GetMapping("/sum")
+    public BigDecimal sumAllAmount(){
+        return expenseService.sumAllAmounts();
     }
 
     @PostMapping

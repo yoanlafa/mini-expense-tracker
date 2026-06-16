@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import type {CreateExpenseRequest, Expense} from "./types/Expense.ts";
 import ExpenseList from "./components/ExpenseList.tsx";
-import {createExpense, deleteExpense, getExpenses} from "./api/expenseApi.ts";
+import {createExpense, deleteExpense, getExpenses, getTotalAmount} from "./api/expenseApi.ts";
 import ExpenseForm from "./components/ExpenseForm.tsx";
 
 function App(){
   const[expenses, setExpenses] = useState<Expense[]>([]);
   const[formVisible, setFormVisible]=useState(false);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     getExpenses().then((data)=>{
@@ -18,12 +19,22 @@ function App(){
 
   }, []);
 
+    {/* gets the total amount*/}
+
+    useEffect(() => {
+        getTotalAmount()
+            .then((data)=>setTotalAmount(data))
+            .catch((error)=>console.error("Error fetching total amount:", error))
+    }, []);
+
+
   const handleDeleteExpense = (expenseToDelete:Expense)=> {
     deleteExpense(expenseToDelete.id)
         .then(()=>{
           setExpenses((previousExpenses:Expense[])=>
           previousExpenses.filter((expense)=>expense.id !== expenseToDelete.id)
           );
+            setTotalAmount((previous)=>previous - expenseToDelete.amount);
         })
         .catch((error)=>console.error("Error deleting task:", error));
   };
@@ -33,6 +44,7 @@ function App(){
           .then((createdExpense)=>{
               setExpenses((previousExpenses:Expense[])=>[...previousExpenses, createdExpense]);
               setFormVisible(false);
+              setTotalAmount((previous)=>previous + createdExpense.amount);
 
           }).catch((error)=>console.error("Error creating Expense", error));
     }
@@ -70,6 +82,10 @@ function App(){
 
                   <h3 className="text-2xl font-bold text-center text-green-600">
                       Expenses
+                  </h3>
+
+                  <h3 className="text-2xl font-bold text-center text-green-600">
+                      Total Spent: {totalAmount}
                   </h3>
               </div>
           </>

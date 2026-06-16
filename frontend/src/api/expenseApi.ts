@@ -36,3 +36,13 @@ export async function deleteExpense(expenseID: number): Promise<void>{
         throw new Error("Failed to delete!")
     }
 }
+
+export async function getTotalAmount(): Promise<number> {
+    const response = await fetch("http://localhost:8080/api/expenses/sum");
+
+    if (!response.ok){
+        throw new Error("Failed to fetch total amount!");
+    }
+
+    return response.json();
+}

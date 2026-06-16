@@ -5,7 +5,9 @@ import com.yoanlafazanski.mini_expense_tracker.model.Expense;
 import org.springframework.stereotype.Service;
 import com.yoanlafazanski.mini_expense_tracker.repository.ExpenseRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ExpenseService {
@@ -26,6 +28,12 @@ public class ExpenseService {
         expense.setCategory(request.category());
         expense.setAmount(request.amount());
         return expenseRepository.save(expense);
+    }
+
+    public BigDecimal sumAllAmounts(){
+        BigDecimal sum = expenseRepository.sumAllAmounts();
+
+        return Objects.requireNonNullElse(sum, BigDecimal.ZERO);
     }
 
     public void deleteExpense(Long id){
