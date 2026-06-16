@@ -11,7 +11,7 @@ export async function getExpenses(): Promise<Expense[]> {
     return response.json();
 }
 
-export async function createExpense (expenseRequest: CreateExpenseRequest){
+export async function createExpense (expenseRequest: CreateExpenseRequest): Promise<Expense>{
     const response = await fetch(API_URL, {
         method: "POST",
         headers: {

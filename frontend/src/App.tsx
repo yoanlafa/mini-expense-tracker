@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import type {Expense} from "./types/Expense.ts";
+import type {CreateExpenseRequest, Expense} from "./types/Expense.ts";
 import ExpenseList from "./components/ExpenseList.tsx";
-import {deleteExpense, getExpenses} from "./api/expenseApi.ts";
+import {createExpense, deleteExpense, getExpenses} from "./api/expenseApi.ts";
+import ExpenseForm from "./components/ExpenseForm.tsx";
 
 function App(){
   const[expenses, setExpenses] = useState<Expense[]>([]);
@@ -26,6 +27,14 @@ function App(){
         .catch((error)=>console.error("Error deleting task:", error));
   };
 
+  const handleExpenseForm = (expenseRequest: CreateExpenseRequest) => {
+      createExpense(expenseRequest)
+          .then((createdExpense)=>{
+              setExpenses((previousExpenses:Expense[])=>[...previousExpenses, createdExpense]);
+
+          }).catch((error)=>console.error("Error creating Expense", error));
+    }
+
   return (
       <div
           style={{
@@ -40,12 +49,22 @@ function App(){
         <h3 className="text-2xl font-bold text-center text-green-600 mb-6">
           Expenses
         </h3>
+
+          {/* List of All the Expenses*/}
+
         {
           <ExpenseList
           expenses={expenses}
           onDeleteExpense={handleDeleteExpense}/>
         }
+
+          {/*Form to Submit New Expenses*/}
+
+          {
+              <ExpenseForm onCreateExpense={handleExpenseForm}/>
+          }
       </div>
+
   )
 }
 
