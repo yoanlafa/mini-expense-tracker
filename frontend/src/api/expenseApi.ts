@@ -2,7 +2,7 @@ import type {Expense, CreateExpenseRequest} from "../types/Expense.ts";
 
 const API_URL = "http://localhost:8080/api/expenses";
 
-export async function getExpenses(): Promise<Expense> {
+export async function getExpenses(): Promise<Expense[]> {
     const response = await fetch(API_URL)
 
     if (!response.ok){

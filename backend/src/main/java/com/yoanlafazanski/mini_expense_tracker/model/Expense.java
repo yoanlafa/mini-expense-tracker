@@ -1,4 +1,4 @@
-package model;
+package com.yoanlafazanski.mini_expense_tracker.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

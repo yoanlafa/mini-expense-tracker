@@ -1,17 +1,16 @@
-package controller;
+package com.yoanlafazanski.mini_expense_tracker.controller;
 
-import DTO.ExpenseRequest;
+import com.yoanlafazanski.mini_expense_tracker.DTO.ExpenseRequest;
 import jakarta.validation.Valid;
-import model.Expense;
+import com.yoanlafazanski.mini_expense_tracker.model.Expense;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.ExpenseService;
+import com.yoanlafazanski.mini_expense_tracker.service.ExpenseService;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/expenses")
 @CrossOrigin(origins = "http://localhost:5173")
 public class ExpenseController {

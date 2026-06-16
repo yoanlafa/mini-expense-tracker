@@ -1,9 +1,9 @@
-package service;
+package com.yoanlafazanski.mini_expense_tracker.service;
 
-import DTO.ExpenseRequest;
-import model.Expense;
+import com.yoanlafazanski.mini_expense_tracker.DTO.ExpenseRequest;
+import com.yoanlafazanski.mini_expense_tracker.model.Expense;
 import org.springframework.stereotype.Service;
-import repository.ExpenseRepository;
+import com.yoanlafazanski.mini_expense_tracker.repository.ExpenseRepository;
 
 import java.util.List;
 
