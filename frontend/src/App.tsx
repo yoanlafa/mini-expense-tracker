@@ -37,6 +37,19 @@ function App(){
           }).catch((error)=>console.error("Error creating Expense", error));
     }
 
+    if (formVisible){
+        return(
+            <div className="p-5 font-sans max-w-[500px] mx-auto">
+            {/*Form to Submit New Expenses*/}
+
+        {
+            <ExpenseForm onCreateExpense={handleExpenseForm}
+                         onCancel={()=>setFormVisible(false)}/>
+        }
+            </div>
+        );
+    }
+
   return (
       <div
           style={{
@@ -67,13 +80,6 @@ function App(){
           expenses={expenses}
           onDeleteExpense={handleDeleteExpense}/>
         }
-
-          {/*Form to Submit New Expenses*/}
-
-          { formVisible &&
-              <ExpenseForm onCreateExpense={handleExpenseForm}
-              onCancel={()=>setFormVisible(false)}/>
-          }
       </div>
 
   )
