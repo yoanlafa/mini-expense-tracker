@@ -5,12 +5,17 @@ import ExpenseList from "./components/ExpenseList.tsx";
 import {createExpense, deleteExpense, getExpenses, getTotalAmount} from "./api/expenseApi.ts";
 import ExpenseForm from "./components/ExpenseForm.tsx";
 import ExpenseCategoryDropdown from "./components/ExpenseCategoryFilter.tsx";
+import TimeFilterFields from "./components/TimeFilter.tsx";
 
 function App(){
-  const[expenses, setExpenses] = useState<Expense[]>([]);
-  const[formVisible, setFormVisible]=useState(false);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [formVisible, setFormVisible]=useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [categoryFilter, setCategoryFilter] = useState("All")
+  const [categoryFilter, setCategoryFilter] = useState("All");
+    {/*states used for filtering the time period*/}
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
 
   useEffect(() => {
     getExpenses().then((data)=>{
@@ -49,15 +54,19 @@ function App(){
               setTotalAmount((previous)=>previous + createdExpense.amount);
 
           }).catch((error)=>console.error("Error creating Expense", error));
-  }
+  };
 
     {/*filter the list of expenses*/}
 
   const displayedExpenses: Expense[] = expenses.filter((expense)=>{
       const matchCategory = categoryFilter ==="All" || expense.category ===categoryFilter;
+      const matchesStartDate = startDate === "" || expense.date >= startDate;
+      const matchesEndDate = endDate === "" || expense.date <= endDate;
 
-      return matchCategory;
-  })
+      const matchDate = matchesStartDate && matchesEndDate;
+
+      return matchCategory && matchDate;
+  });
 
     if (formVisible){
         return(
@@ -95,6 +104,7 @@ function App(){
               </div>
 
               <div className="mb-6 flex flex-col gap-3">
+                  <TimeFilterFields onStartDateChange={setStartDate} onEndDateChange={setEndDate}/>
                   <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
               </div>
 
@@ -120,8 +130,8 @@ function App(){
         }
       </div>
 
-  )
+  );
 }
 
 
-export default App
+export default App;
