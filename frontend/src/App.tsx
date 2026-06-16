@@ -97,14 +97,24 @@ function App(){
               <div className="mb-6 flex flex-col gap-3">
                   <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
               </div>
+
+              <div className="border p-4 rounded-lg shadow-sm flex justify-between items-center">
+                  <h3 className="text-base font-bold">Title</h3>
+
+                  <h3 className="text-sm">Category</h3>
+
+                  <h3 className="text-sm">Date</h3>
+
+                  <h3 className="text-base">Amount</h3>
+              </div>
           </>
           {/* List of All the Expenses*/}
 
-        {displayedExpenses.length === 0 ? (
-                <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
-            ): (
-            < ExpenseList
-            expenses = {displayedExpenses}
+          {displayedExpenses.length === 0 ? (
+              <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
+          ) : (
+              < ExpenseList
+                  expenses = {displayedExpenses}
             onDeleteExpense={handleDeleteExpense}/>
         )
         }
