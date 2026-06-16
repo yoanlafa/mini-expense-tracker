@@ -12,3 +12,5 @@ export interface CreateExpenseRequest{
     amount:number;
     date:string;
 }
+
+export type CategoryFilter = 'Groceries' | 'Shopping' | 'Services' | 'Entertainment' | 'Taxes' | 'All'

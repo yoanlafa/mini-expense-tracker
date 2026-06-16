@@ -4,11 +4,13 @@ import type {CreateExpenseRequest, Expense} from "./types/Expense.ts";
 import ExpenseList from "./components/ExpenseList.tsx";
 import {createExpense, deleteExpense, getExpenses, getTotalAmount} from "./api/expenseApi.ts";
 import ExpenseForm from "./components/ExpenseForm.tsx";
+import ExpenseCategoryDropdown from "./components/ExpenseCategoryFilter.tsx";
 
 function App(){
   const[expenses, setExpenses] = useState<Expense[]>([]);
   const[formVisible, setFormVisible]=useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [categoryFilter, setCategoryFilter] = useState("All")
 
   useEffect(() => {
     getExpenses().then((data)=>{
@@ -47,7 +49,15 @@ function App(){
               setTotalAmount((previous)=>previous + createdExpense.amount);
 
           }).catch((error)=>console.error("Error creating Expense", error));
-    }
+  }
+
+    {/*filter the list of expenses*/}
+
+  const displayedExpenses: Expense[] = expenses.filter((expense)=>{
+      const matchCategory = categoryFilter ==="All" || expense.category ===categoryFilter;
+
+      return matchCategory;
+  })
 
     if (formVisible){
         return(
@@ -63,12 +73,7 @@ function App(){
     }
 
   return (
-      <div
-          style={{
-            padding: "20px",
-            fontFamily: "sans-serif",
-            maxWidth: "500px",
-          }}>
+      <div className="p-5 font-sans max-w-[500px] mx-auto">
         <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">
           Mini Expense Tracker
         </h1>
@@ -88,13 +93,20 @@ function App(){
                       Total Spent: {totalAmount}
                   </h3>
               </div>
+
+              <div className="mb-6 flex flex-col gap-3">
+                  <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
+              </div>
           </>
           {/* List of All the Expenses*/}
 
-        {
-          <ExpenseList
-          expenses={expenses}
-          onDeleteExpense={handleDeleteExpense}/>
+        {displayedExpenses.length === 0 ? (
+                <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
+            ): (
+            < ExpenseList
+            expenses = {displayedExpenses}
+            onDeleteExpense={handleDeleteExpense}/>
+        )
         }
       </div>
 
