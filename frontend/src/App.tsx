@@ -118,29 +118,18 @@ function App(){
                       >+</button>
 
                   <h3 className="text-2xl font-bold text-center text-green-600">
-                      Expenses
-                  </h3>
-
-                  <h3 className="text-2xl font-bold text-center text-green-600">
                       Total Spent: {totalAmount}€
                   </h3>
               </div>
 
               <div className="mb-6 flex flex-col gap-3">
                   <TimeFilterFields onStartDateChange={setStartDate} onEndDateChange={setEndDate}/>
-                  <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
-                  <ExpenseSortingDropdown onSortingChange={setSortingOption}/>
+                  <div className="flex gap-3">
+                      <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
+                      <ExpenseSortingDropdown onSortingChange={setSortingOption}/>
+                  </div>
               </div>
 
-              <div className="border p-4 rounded-lg shadow-sm flex justify-between items-center">
-                  <h3 className="text-base font-bold">Title</h3>
-
-                  <h3 className="text-sm">Category</h3>
-
-                  <h3 className="text-sm">Date</h3>
-
-                  <h3 className="text-base">Amount</h3>
-              </div>
           </>
           {/* List of All the Expenses*/}
 

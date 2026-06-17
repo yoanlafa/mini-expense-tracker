@@ -35,7 +35,7 @@ function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="mb-8 flex flex-col gap-2.5"
+            className="p-5 font-sans max-w-[500px] mx-auto mb-8 flex flex-col gap-2.5"
         >
             <h3 className="font-bold text-2xl text-center mb-6 text-gray-800">
                 Submit New Expense

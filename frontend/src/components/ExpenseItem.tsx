@@ -7,23 +7,21 @@ interface ExpenseItemProps{
 
 function ExpenseItem({expense, onDeleteExpense}: ExpenseItemProps){
     return (
-        <li className="border p-4 rounded-lg shadow-sm flex justify-between items-center">
+        <li className="grid grid-cols-[1.4fr_1fr_1fr_0.8fr_80px] items-center gap-2 border p-4 rounded-lg shadow-sm">
+            <h3 className="text-base font-bold text-center">{expense.title}</h3>
 
-            <div className="flex gap-6 items-center">
-                <h3 className="text-base font-bold">{expense.title}</h3>
+            <span className="text-sm text-center">{expense.category}</span>
 
-                <h3 className="text-sm">{expense.category}</h3>
+            <span className="text-sm text-center">{expense.date}</span>
 
-                <h3 className="text-sm">{expense.date}</h3>
+            <span className="text-base text-center">{expense.amount}€</span>
 
-                <h3 className="text-base">{expense.amount}€</h3>
-
-                <button
-                    onClick={() => onDeleteExpense(expense)}
-                    className="bg-red-100 text-red-700 px-3 py-1 rounded-md text-sm">Delete
-                </button>
-            </div>
-
+            <button
+                onClick={() => onDeleteExpense(expense)}
+                className="bg-red-100 text-red-700 px-3 py-1 rounded-md text-sm"
+            >
+                Delete
+            </button>
         </li>
     );
 }
