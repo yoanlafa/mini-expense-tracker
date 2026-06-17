@@ -7,6 +7,7 @@ import ExpenseForm from "./components/ExpenseForm.tsx";
 import ExpenseCategoryDropdown from "./components/ExpenseCategoryFilter.tsx";
 import TimeFilterFields from "./components/TimeFilter.tsx";
 import ExpenseSortingDropdown from "./components/ExpenseSortOptions.tsx";
+import ExpenseChart from "./components/ExpenseChart.tsx";
 
 function App(){
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -18,6 +19,8 @@ function App(){
   const [endDate, setEndDate] = useState("");
   const [sortingOption, setSortingOption]= useState("Newest");
   const [currentPage, setCurrentPage] = useState(1);
+    {/* percentage chart of categories*/}
+  const [chartVisible, setChartVisible] = useState(false);
 
 
   useEffect(() => {
@@ -112,6 +115,14 @@ function App(){
         );
     }
 
+    if (chartVisible){
+        return (
+            <ExpenseChart expenses={displayedExpenses}
+                          onClose={()=>setChartVisible(false)}
+                          />
+        )
+    }
+
   return (
       <div className="min-h-screen bg-gray-50">
           <div className="p-5 font-sans max-w-[500px] mx-auto">
@@ -125,6 +136,9 @@ function App(){
                           onClick={()=>setFormVisible(true)}
                           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-lg"
                           >+</button>
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-lg"
+                              onClick={()=>setChartVisible(true)}
+                              >Chart</button>
 
                       <h3 className="text-2xl font-bold text-center text-green-600">
                           Total Spent: {totalAmount}€
