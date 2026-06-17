@@ -6,6 +6,7 @@ import {createExpense, deleteExpense, getExpenses, getTotalAmount} from "./api/e
 import ExpenseForm from "./components/ExpenseForm.tsx";
 import ExpenseCategoryDropdown from "./components/ExpenseCategoryFilter.tsx";
 import TimeFilterFields from "./components/TimeFilter.tsx";
+import ExpenseSortingDropdown from "./components/ExpenseSortOptions.tsx";
 
 function App(){
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -15,6 +16,7 @@ function App(){
     {/*states used for filtering the time period*/}
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [sortingOption, setSortingOption]= useState("Newest");
 
 
   useEffect(() => {
@@ -68,6 +70,27 @@ function App(){
       return matchCategory && matchDate;
   });
 
+  const sortedExpenses = [...displayedExpenses].sort((a,b)=>{
+      if (sortingOption === "Newest"){
+          return b.date.localeCompare(a.date);
+      }
+
+      if (sortingOption === "Oldest"){
+          return a.date.localeCompare(b.date);
+      }
+
+      if (sortingOption === "Amount decreasing"){
+          return b.amount - a.amount;
+      }
+
+      if (sortingOption === "Amount increasing"){
+          return a.amount - b.amount;
+      }
+
+      return 0;
+  })
+
+
     if (formVisible){
         return(
             <div className="p-5 font-sans max-w-[500px] mx-auto">
@@ -99,13 +122,14 @@ function App(){
                   </h3>
 
                   <h3 className="text-2xl font-bold text-center text-green-600">
-                      Total Spent: {totalAmount}
+                      Total Spent: {totalAmount}€
                   </h3>
               </div>
 
               <div className="mb-6 flex flex-col gap-3">
                   <TimeFilterFields onStartDateChange={setStartDate} onEndDateChange={setEndDate}/>
                   <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
+                  <ExpenseSortingDropdown onSortingChange={setSortingOption}/>
               </div>
 
               <div className="border p-4 rounded-lg shadow-sm flex justify-between items-center">
@@ -124,7 +148,7 @@ function App(){
               <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
           ) : (
               < ExpenseList
-                  expenses = {displayedExpenses}
+                  expenses = {sortedExpenses}
             onDeleteExpense={handleDeleteExpense}/>
         )
         }

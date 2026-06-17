@@ -14,3 +14,4 @@ export interface CreateExpenseRequest{
 }
 
 export type CategoryFilter = 'Groceries' | 'Shopping' | 'Services' | 'Entertainment' | 'Taxes' | 'All'
+export type SortingOption = 'Amount increasing' | 'Amount decreasing' | 'Newest' | 'Oldest'

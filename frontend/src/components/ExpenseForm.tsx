@@ -13,7 +13,7 @@ interface ExpenseFormProps {
 function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
-    const [amount, setAmount] = useState(0.0);
+    const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -22,13 +22,13 @@ function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
         onCreateExpense({
             title,
             category,
-            amount,
+            amount: Number(amount),
             date
         })
 
         setTitle("");
         setCategory("")
-        setAmount(0.0);
+        setAmount("");
         setDate("")
     };
 
@@ -64,7 +64,7 @@ function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
                 type="number"
                 placeholder="Amount"
                 value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
+                onChange={(e) => setAmount(e.target.value)}
                 required
                 step="0.01"
                 min="0.01"
