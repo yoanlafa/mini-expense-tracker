@@ -12,7 +12,7 @@ function ExpenseList({expenses, onDeleteExpense}: ExpenseListProps){
     }
 
     return (
-        <div className="mt-6">
+        <div className="bg-white mt-6">
             <div
                 className="grid grid-cols-[1.4fr_1fr_1fr_0.8fr_80px] items-center gap-2 border p-4 rounded-lg shadow-sm mb-4">
                 <span className="text-sm font-bold text-center">Title</span>

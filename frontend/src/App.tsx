@@ -105,42 +105,44 @@ function App(){
     }
 
   return (
-      <div className="p-5 font-sans max-w-[500px] mx-auto">
-        <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">
-          Mini Expense Tracker
-        </h1>
-          <>
-              <div className="mb-6 flex items-center justify-between">
+      <div className="min-h-screen bg-gray-50">
+          <div className="p-5 font-sans max-w-[500px] mx-auto">
+            <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">
+              Mini Expense Tracker
+            </h1>
+              <>
+                  <div className="mb-6 flex items-center justify-between">
 
-                  <button
-                      onClick={()=>setFormVisible(true)}
-                      className="bg-green-500 text-black px-4 py-2 rounded-md text-lg"
-                      >+</button>
+                      <button
+                          onClick={()=>setFormVisible(true)}
+                          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-lg"
+                          >+</button>
 
-                  <h3 className="text-2xl font-bold text-center text-green-600">
-                      Total Spent: {totalAmount}€
-                  </h3>
-              </div>
-
-              <div className="mb-6 flex flex-col gap-3">
-                  <TimeFilterFields onStartDateChange={setStartDate} onEndDateChange={setEndDate}/>
-                  <div className="flex gap-3">
-                      <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
-                      <ExpenseSortingDropdown onSortingChange={setSortingOption}/>
+                      <h3 className="text-2xl font-bold text-center text-green-600">
+                          Total Spent: {totalAmount}€
+                      </h3>
                   </div>
-              </div>
 
-          </>
-          {/* List of All the Expenses*/}
+                  <div className="mb-6 flex flex-col gap-3">
+                      <TimeFilterFields onStartDateChange={setStartDate} onEndDateChange={setEndDate}/>
+                      <div className="flex gap-3">
+                          <ExpenseCategoryDropdown onFilterChange={setCategoryFilter}/>
+                          <ExpenseSortingDropdown onSortingChange={setSortingOption}/>
+                      </div>
+                  </div>
 
-          {displayedExpenses.length === 0 ? (
-              <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
-          ) : (
-              < ExpenseList
-                  expenses = {sortedExpenses}
-            onDeleteExpense={handleDeleteExpense}/>
-        )
-        }
+              </>
+              {/* List of All the Expenses*/}
+
+              {displayedExpenses.length === 0 ? (
+                  <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
+              ) : (
+                  < ExpenseList
+                      expenses = {sortedExpenses}
+                onDeleteExpense={handleDeleteExpense}/>
+            )
+            }
+          </div>
       </div>
 
   );
