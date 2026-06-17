@@ -17,6 +17,7 @@ function App(){
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [sortingOption, setSortingOption]= useState("Newest");
+  const [currentPage, setCurrentPage] = useState(1);
 
 
   useEffect(() => {
@@ -88,7 +89,14 @@ function App(){
       }
 
       return 0;
-  })
+  });
+
+    {/*pagination*/}
+    const expensesPerPage = 5;
+    const totalPages = Math.max(1,Math.ceil(sortedExpenses.length/expensesPerPage));
+    const startIndex = (currentPage-1)*expensesPerPage;
+    const endIndex = startIndex+expensesPerPage;
+    const paginatedExpenses = sortedExpenses.slice(startIndex, endIndex);
 
 
     if (formVisible){
@@ -135,11 +143,31 @@ function App(){
               {/* List of All the Expenses*/}
 
               {displayedExpenses.length === 0 ? (
-                  <p className="text-center text-gray-500 my-6">No tasks match the active filters.</p>
+                  <p className="text-center text-gray-500 my-6">No expenses match the active filters.</p>
               ) : (
+                  <>
                   < ExpenseList
-                      expenses = {sortedExpenses}
+                      expenses = {paginatedExpenses}
                 onDeleteExpense={handleDeleteExpense}/>
+                      <div className="mt-4 flex items-center justify-center gap-4">
+                          <button
+                              onClick={()=>setCurrentPage((page)=>page-1)}
+                              disabled={currentPage===1}
+                              className="rounded-md bg-gray-200 hover:bg-gray-400 px-3 py-1 text-sm disabled:opacity-50"
+                              >Previous</button>
+
+                          <span className="test-sm">
+                              Page {currentPage} of {totalPages}
+                          </span>
+
+                          <button
+                              onClick={()=>setCurrentPage((page)=>page+1)}
+                              disabled={currentPage===totalPages}
+                              className="rounded-md bg-gray-200 hover:bg-gray-400 px-3 py-1 text-sm disabled:opacity-50"
+                              >Next</button>
+                      </div>
+
+                  </>
             )
             }
           </div>

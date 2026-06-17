@@ -16,6 +16,7 @@ function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
 
+
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -89,7 +90,7 @@ function ExpenseForm({onCreateExpense, onCancel}: ExpenseFormProps) {
                     <button
                         type="button"
                         onClick={onCancel}
-                        className={"bg-grey-500 text-black px-4 py-2 rounded-md"}>
+                        className={"bg-gray-300 hover:bg-gray-500 text-black px-4 py-2 rounded-md"}>
                         Cancel
                     </button>
                 </div>
