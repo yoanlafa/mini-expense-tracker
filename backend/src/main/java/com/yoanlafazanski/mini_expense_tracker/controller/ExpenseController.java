@@ -1,6 +1,6 @@
 package com.yoanlafazanski.mini_expense_tracker.controller;
 
-import com.yoanlafazanski.mini_expense_tracker.DTO.ExpenseRequest;
+import com.yoanlafazanski.mini_expense_tracker.dto.ExpenseRequest;
 import jakarta.validation.Valid;
 import com.yoanlafazanski.mini_expense_tracker.model.Expense;
 import org.springframework.http.HttpStatus;
