@@ -3,6 +3,7 @@ package com.yoanlafazanski.mini_expense_tracker.service;
 import com.yoanlafazanski.mini_expense_tracker.dto.RegisterRequest;
 import com.yoanlafazanski.mini_expense_tracker.model.AppUser;
 import com.yoanlafazanski.mini_expense_tracker.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class AuthService {
         appUser.setPasswordHash(passwordEncoder.encode(request.password()));
 
         return userRepository.save(appUser);
+    }
+
+    public AppUser findByUsername(String username){
+
+        return userRepository.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found: " + username));
     }
 }

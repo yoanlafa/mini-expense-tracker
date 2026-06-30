@@ -28,4 +28,15 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping("/login")
+    public ResponseEntity<RegisterResponse> login(java.security.Principal principal){
+        String username = principal.getName();
+
+        AppUser appUser = authService.findByUsername(username);
+
+        RegisterResponse response = new RegisterResponse(appUser.getId(), appUser.getUsername());
+
+        return ResponseEntity.ok(response);
+    }
 }
