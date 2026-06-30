@@ -1,5 +1,6 @@
 package com.yoanlafazanski.mini_expense_tracker.config;
 
+import com.yoanlafazanski.mini_expense_tracker.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -16,7 +17,9 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll() // Add this to expose actual backend exceptions
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
 
