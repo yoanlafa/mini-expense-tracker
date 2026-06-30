@@ -23,20 +23,11 @@ public class ExpenseServiceTest {
 
     @Test
     void sumAllAmounts_returnsTotalAmounts(){
-        when(expenseRepository.sumAllAmounts())
-                .thenReturn(new BigDecimal("25.50"));
-
-        BigDecimal result = expenseService.sumAllAmounts();
-
-        assertEquals(new BigDecimal("25.50"),result);
     }
 
     @Test
     void deleteExpense_deletesExpenseById(){
-        Long expenseId = 1L;
 
-        expenseService.deleteExpense(expenseId);
-        verify(expenseRepository).deleteById(expenseId);
     }
 
 

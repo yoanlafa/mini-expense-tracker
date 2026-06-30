@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.yoanlafazanski.mini_expense_tracker.service.ExpenseService;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -22,24 +23,24 @@ public class ExpenseController {
     }
 
     @GetMapping
-    public List<Expense> getAllExpense(){
-        return expenseService.getAllExpense();
+    public List<Expense> getAllExpense(Principal principal) {
+        return expenseService.getAllExpense(principal.getName());
     }
 
     @GetMapping("/sum")
-    public BigDecimal sumAllAmount(){
-        return expenseService.sumAllAmounts();
+    public BigDecimal sumAllAmount(Principal principal) {
+        return expenseService.sumAllAmounts(principal.getName());
     }
 
     @PostMapping
-    public ResponseEntity<Expense> createExpense(@Valid @RequestBody ExpenseRequest request){
-        Expense savedExpense = expenseService.createExpense(request);
+    public ResponseEntity<Expense> createExpense(@Valid @RequestBody ExpenseRequest request, Principal principal) {
+        Expense savedExpense = expenseService.createExpense(request, principal.getName());
         return new ResponseEntity<>(savedExpense, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExpense(@PathVariable Long id){
-        expenseService.deleteExpense(id);
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long id, Principal principal) {
+        expenseService.deleteExpense(id, principal.getName());
         return ResponseEntity.noContent().build();
     }
 }
